@@ -44,7 +44,7 @@ wss.on('connection', (ws) => {
                 .forEach(client => {
                    
                     if (client != ws) {
-                        client.send(`stranger: ${message} `);
+                        client.send(`you: ${message} `);
                     }    
                 });
             

@@ -1,7 +1,7 @@
 import React from 'react'
 import request from 'superagent'
 
-const geturl = "192.168.1.156:3000/api/"
+const geturl = "http://192.168.1.156:3000/api/"
 var exampleSocket = new WebSocket("ws://192.168.1.156:3000/", "protocolOne")
 
 class chat extends React.Component {
