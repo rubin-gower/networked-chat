@@ -22,7 +22,7 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (ws) => {
-
+console.log(wss.clients.size)
     //connection is up, let's add a simple simple event
     ws.on('message', (message) => {
         
@@ -60,7 +60,7 @@ wss.on('connection', (ws) => {
 
 
     //send immediatly a feedback to the incoming connection    
-    ws.send('connected to WebSocket server');
+    ws.send(`Your connected!\n other users: ${(wss.clients.size - 1).toString()}`);
 });
 
 //start our server
