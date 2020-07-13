@@ -12,7 +12,9 @@ const app = express()
 app.use(express.json())
 app.use(express.static(path.join(__dirname, './public')))
 
-
+ 
+const secretRegex = /^secret\:/;
+const broadcastRegex = /^broad\:/;
 //initialize a simple http server
 const server = http.createServer(app);
 
@@ -26,14 +28,12 @@ wss.on('connection', (ws) => {
         
         //log the received message and send it back to the client
         console.log('received: %s', message);
-        ws.send(`Hello, you sent -> ${message}`);
+        ws.send(`you: ${message.replace(broadcastRegex, '')}`);
        // ws.send("hi");
         
 
         //log the received message and send it back to the client
-       
-        const secretRegex = /^secret\:/;
-        const broadcastRegex = /^broad\:/;
+      
 
         if (broadcastRegex.test(message)) {
             message = message.replace(broadcastRegex, '');
@@ -44,7 +44,7 @@ wss.on('connection', (ws) => {
                 .forEach(client => {
                    
                     if (client != ws) {
-                        client.send(`b: ${message} `);
+                        client.send(`stranger: ${message} `);
                     }    
                 });
             
@@ -54,7 +54,7 @@ wss.on('connection', (ws) => {
             ws.send(`the secret is pie`)
         }
         else {
-            ws.send(`sent -> ${message}`);
+            ws.send(`you: ${message.replace(broadcastRegex, '')}`);
         }
     });
 
