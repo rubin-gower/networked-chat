@@ -52,21 +52,33 @@ class chat extends React.Component {
         return (
             <>
                     <div className="chatboxwrap" style={{backgroundColor: "gray", width: "300px", }}>
+                    chat app
                     <div className="chatbox" id="chatbox" style={{
-                        margin: "5px",
+                        margin: "1%",
                         overflow: "auto",
                         height: "200px", 
                         backgroundColor: "lightgray"
                         }}>
-                            {this.state.message.map(elem=>{
-                                return <p>{elem}</p>
+                            {this.state.message.map((elem, i)=>{
+                                return <p key={i}>{elem}</p>
                             })}
                             
 
                         </div>
-                    <input id="input" type="text" onChange={this.handleChange} placeholder="name" name="name" ></input>
-                    {/* <input id="chat" type="text" onChange={this.handleChange} placeholder="name" name="name" ></input> */}
-                    <button onClick={this.handleSubmit}>send</button>
+                    <textarea id="input" type="text" onChange={this.handleChange} placeholder="msg" msg="name" 
+                    style={{
+                        width: "75%",
+                       margin: "1%",
+                       height: "40px",
+                       display: "inline",
+                    }}></textarea>
+                     
+                    <button onClick={this.handleSubmit} style={{
+                        width: "20%",
+                        float: "top",
+                        height: "40px",
+                        display: "inline",
+                    }}> send</button>
                     </div>
             </>
         )

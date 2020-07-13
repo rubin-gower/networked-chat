@@ -5,7 +5,7 @@ import Chat from "./Chat"
 const App = () => {
   return (
     <>
-    this is the app
+    
     <Chat/>
     </>
   )
