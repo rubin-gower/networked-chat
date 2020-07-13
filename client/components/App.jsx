@@ -6,6 +6,7 @@ const App = () => {
   return (
     <>
     this is the app
+    <Chat/>
     </>
   )
 }
