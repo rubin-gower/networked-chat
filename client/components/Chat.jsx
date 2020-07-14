@@ -12,6 +12,7 @@ class chat extends React.Component {
         timeatload:  moment().add(2, 's').toDate(),
         Connected: "",
         run: true,
+        msgtype: "global"
     }
     
     componentDidMount(){
@@ -61,9 +62,9 @@ class chat extends React.Component {
     handleSubmit = event => {
         
         event.preventDefault()
-        console.log( `broad: ${this.state.chatstuff}`)
-        let hi = `broad: ${this.state.chatstuff}`
-        exampleSocket.send("broad:" + this.state.chatstuff.toString())
+       
+        if(this.state.msgtype == "global") exampleSocket.send("broad:" + this.state.chatstuff.toString())
+        if(this.state.msgtype == "private") exampleSocket.send("private:" + this.state.chatstuff.toString())
         
        
         
@@ -82,7 +83,14 @@ class chat extends React.Component {
         elem.scrollTop = elem.scrollHeight;
       return <p>{this.state.message}</p>
       }
-
+      changemode = () => {
+        if(this.state.msgtype == "global"){
+            this.setState({msgtype: "private"})
+        }
+        else if(this.state.msgtype == "private"){
+            this.setState({msgtype: "global"})
+        }
+      }
     render() {
         return (
             <>
@@ -91,14 +99,16 @@ class chat extends React.Component {
                     <span style={{color: "lightgreen"}}>Connected</span>
                      :
                      <span style={{color: "red"}}>connection broke</span>}
+                        <span onClick={this.changemode} style={{float: "right", color: "blue"}}>{this.state.msgtype}</span>
                     <div className="chatbox" id="chatbox" style={{
                         margin: "1%",
-                        overflow: "auto",
+                        
                         height: "200px", 
                         backgroundColor: "lightgray"
+                        
                         }}>
                             {this.state.message.map((elem, i)=>{
-                                return <p key={i}>{elem}</p>
+                                return <p key={i} style={{margin: "5px"}}>{elem}</p>
                             })}
                             
 
